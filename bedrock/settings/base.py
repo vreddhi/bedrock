@@ -222,6 +222,9 @@ MINIFY_BUNDLES = {
             'css/sandstone/sandstone-resp.less',
             'css/firefox/desktop/trust.less',
         ),
+        'firefox_family': (
+            'css/firefox/family.less',
+        ),
         'firefox_sms': (
             'css/libs/socialshare/socialshare.less',
             'css/firefox/template-resp.less',
@@ -620,6 +623,10 @@ MINIFY_BUNDLES = {
         'firefox_developer': (
             'js/firefox/developer.js',
             'js/base/mozilla-modal.js',
+        ),
+        'firefox_family': (
+            'js/libs/jquery.spritely-0.6.7.js',
+            'js/firefox/family.js',
         ),
         'firefox_firstrun': (
             'js/base/mozilla-modal.js',
