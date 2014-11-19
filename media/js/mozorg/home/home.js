@@ -240,7 +240,10 @@ $(function () {
 
         // close when something outside the takeover gets focus
         $('a, input, textarea, button, :focus').bind('focus.splash', function(e) {
+        //$('window').on('focus.splash', function(e) {
             var $focused = $(e.target);
+            //console.log('FOCUSED!');
+            //console.log($focused);
             if (!$focused.parents().is($splash)) {
                 closeSplash();
             }
