@@ -21,29 +21,9 @@
 
 {% block extrahead %}
   {{ css('firefox_new') }}
-
-  {% if request.locale == 'en-US' %}
-    <!-- Google Analytics Content Experiment code -->
-    <script>function utmx_section(){}function utmx(){}(function(){
-    if (! /[?&]f=[0-9]+/.test(window.location.search)){
-    var k='71153379-28',d=document,l=d.location,c=d.cookie;
-    if(l.search.indexOf('utm_expid='+k)>0)return;
-    function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-    indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-    length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-    '<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-    '://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-    '&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-    valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-    '" type="text/javascript" charset="utf-8"><\/sc'+'ript>')}})();
-
-    </script><script>utmx('url','A/B');</script>
-    <!-- End of Google Analytics Content Experiment code -->
-  {% endif %}
 {% endblock %}
 
 {% block js_pretrack %}
-  {{ js('firefox-resp') }}
   {{ js('firefox_new') }}
 {% endblock %}
 
@@ -68,6 +48,14 @@
     </div>
     <div id="version-message-desktop-latest" class="version-message">
       {{_('Congrats! You’re using the latest version of Firefox.')}}
+
+      <div id="refresh-firefox-wrapper">
+        <button id="refresh-firefox" class="button">
+          <strong>{{ _('Refresh Firefox') }}</strong>
+          {{ _('Fix problems and restore performance') }}
+        </button>
+        <a href="https://support.mozilla.org/kb/reset-firefox-easily-fix-most-problems" rel="external">{{ _('Learn more') }}</a>
+      </div>
     </div>
     <div id="version-message-desktop-old" class="version-message">
       {{_('Looks like you’re using an older version of Firefox.')}}

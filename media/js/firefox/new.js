@@ -16,8 +16,11 @@
     var $html = $(document.documentElement);
 
     if (isFirefox()) {
-        var latestFirefoxVersion = $html.attr('data-latest-firefox');
-        latestFirefoxVersion = parseInt(latestFirefoxVersion.split('.')[0], 10);
+        // data-latest-firefox includes point release information
+        var latestFirefoxVersionFull = $html.attr('data-latest-firefox');
+
+        // get latest full version (no point release info) for initial check
+        var latestFirefoxVersion = parseInt(latestFirefoxVersionFull.split('.')[0], 10);
 
         if (isFirefoxUpToDate(latestFirefoxVersion + '')) {
             if (window.location.hash !== '#download-fx' && window.location.search !== '?scene=2') {
@@ -27,6 +30,18 @@
                 // (from a download button) then we want them to see the same scene 2
                 // as non-firefox users and initiate a download
                 $html.addClass('firefox-latest');
+
+                Mozilla.UITour.getConfiguration('appinfo', function(config) {
+                    // check if on release channel and full user version matches full latest version
+                    if (config.defaultUpdateChannel === 'release' && config.version === latestFirefoxVersionFull) {
+                        // show refresh button
+                        $('#refresh-firefox').on('click', function() {
+                            Mozilla.UITour.resetFirefox();
+                        });
+
+                        $('#refresh-firefox-wrapper').show();
+                    }
+                });
             }
         } else {
             $html.addClass('firefox-old');
