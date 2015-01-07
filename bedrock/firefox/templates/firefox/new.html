@@ -49,6 +49,7 @@
     <div id="version-message-desktop-latest" class="version-message">
       {{_('Congrats! You’re using the latest version of Firefox.')}}
 
+    {% if l10n_has_tag('firefox-new-refresh-button') %}
       <div id="refresh-firefox-wrapper">
         <button id="refresh-firefox" class="button">
           <strong>{{ _('Refresh Firefox') }}</strong>
@@ -56,6 +57,7 @@
         </button>
         <a href="https://support.mozilla.org/kb/reset-firefox-easily-fix-most-problems" rel="external">{{ _('Learn more') }}</a>
       </div>
+    {% endif %}
     </div>
     <div id="version-message-desktop-old" class="version-message">
       {{_('Looks like you’re using an older version of Firefox.')}}
