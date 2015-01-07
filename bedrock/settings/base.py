@@ -745,7 +745,6 @@ MINIFY_BUNDLES = {
             'js/base/mozilla-image-helper.js',
             'js/libs/socialshare.min.js',
             'js/libs/modernizr.custom.csstransitions.js',
-            'js/firefox/australis/australis-uitour.js',
             'js/firefox/new.js',
         ),
         'firefox_independent': (

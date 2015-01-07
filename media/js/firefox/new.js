@@ -5,6 +5,38 @@
 ;(function($, Modernizr, _gaq, site) {
     'use strict';
 
+    var uiTourSendEvent = function(action, data) {
+        var event = new CustomEvent('mozUITour', {
+            bubbles: true,
+            detail: {
+                action: action,
+                data: data || {}
+            }
+        });
+
+        document.dispatchEvent(event);
+    };
+
+    var uiTourGetConfiguration = function(configName, callback) {
+        uiTourSendEvent('getConfiguration', {
+            configuration: configName,
+            callbackID: function() {
+                var id = Math.random().toString(36).replace(/[^a-z]+/g, '');
+
+                function listener(event) {
+                    if (typeof event.detail === 'object' && event.detail.callbackID === id) {
+                        document.removeEventListener('mozUITourResponse', listener);
+                        callback(event.detail.data);
+                    }
+                }
+
+                document.addEventListener('mozUITourResponse', listener);
+
+                return id;
+            }.call()
+        });
+    };
+
     var isIELT9 = (site.platform === 'windows' && /MSIE\s[1-8]\./.test(navigator.userAgent));
     var path_parts = window.location.pathname.split('/');
     var query_str = window.location.search ? window.location.search + '&' : '?';
@@ -31,12 +63,12 @@
                 // as non-firefox users and initiate a download
                 $html.addClass('firefox-latest');
 
-                Mozilla.UITour.getConfiguration('appinfo', function(config) {
+                uiTourGetConfiguration('appinfo', function(config) {
                     // check if on release channel and full user version matches full latest version
                     if (config.defaultUpdateChannel === 'release' && config.version === latestFirefoxVersionFull) {
                         // show refresh button
                         $('#refresh-firefox').on('click', function() {
-                            Mozilla.UITour.resetFirefox();
+                            uiTourSendEvent('resetFirefox');
                         });
 
                         $('#refresh-firefox-wrapper').show();
