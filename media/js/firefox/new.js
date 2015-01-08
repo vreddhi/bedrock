@@ -72,6 +72,9 @@
                         });
 
                         $('#refresh-firefox-wrapper').show();
+
+                        // hide superfluous links
+                        $('.hide-for-refresh').hide();
                     }
                 });
             }
