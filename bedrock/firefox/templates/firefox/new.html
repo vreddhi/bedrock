@@ -49,12 +49,10 @@
     <div id="version-message-desktop-latest" class="version-message">
       {{_('Congrats! You’re using the latest version of Firefox.')}}
 
-    {% if l10n_has_tag('firefox-new-refresh-button') %}
+    {% if l10n_has_tag('firefox_new_refresh_button') %}
       <div id="refresh-firefox-wrapper">
-        <button id="refresh-firefox" class="button">
-          <strong>{{ _('Refresh Firefox') }}</strong>
-          {{ _('Fix problems and restore performance') }}
-        </button>
+        <p>{{ _('Give Firefox a tune up') }}</p>
+        <button id="refresh-firefox" class="button">{{ _('Refresh Firefox') }}</button>
         <a href="https://support.mozilla.org/kb/reset-firefox-easily-fix-most-problems" rel="external">{{ _('Learn more') }}</a>
       </div>
     {% endif %}
@@ -69,7 +67,7 @@
       {{ _('Please follow <a href="%(url)s">these instructions</a> to install Firefox.')|format(url='https://support.mozilla.org/kb/install-firefox-linux') }}
     </div>
   </div>
-  <div id="main-feature">
+  <div id="main-feature" class="hide-for-refresh">
     <div class="row">
       <img src="{{ media('img/firefox/new/firefox-logo.png?2013-06') }}" alt="Firefox" />
       <h1 class="large">
