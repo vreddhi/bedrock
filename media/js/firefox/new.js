@@ -5,6 +5,8 @@
 ;(function($, Modernizr, _gaq, site) {
     'use strict';
 
+    var $window = $(window);
+
     var uiTourSendEvent = function(action, data) {
         var event = new CustomEvent('mozUITour', {
             bubbles: true,
@@ -66,15 +68,18 @@
                 uiTourGetConfiguration('appinfo', function(config) {
                     // check if on release channel and full user version matches full latest version
                     if (config.defaultUpdateChannel === 'release' && config.version === latestFirefoxVersionFull) {
-                        // show refresh button
-                        $('#refresh-firefox').on('click', function() {
-                            uiTourSendEvent('resetFirefox');
+                        // script is in the <head>, so make sure DOM is ready
+                        $(function() {
+                            // show refresh button
+                            $('#refresh-firefox').on('click', function() {
+                                uiTourSendEvent('resetFirefox');
+                            });
+
+                            $('#refresh-firefox-wrapper').show();
+
+                            // hide superfluous links
+                            $('.hide-for-refresh').hide();
                         });
-
-                        $('#refresh-firefox-wrapper').show();
-
-                        // hide superfluous links
-                        $('.hide-for-refresh').hide();
                     }
                 });
             }
@@ -258,7 +263,7 @@
         });
 
         if (hash_change && !no_scene2) {
-            $(window).on('hashchange', function() {
+            $window.on('hashchange', function() {
                 if (window.location.hash === '#download-fx') {
                     show_scene_anim(2);
                 }
@@ -268,7 +273,7 @@
             });
         }
 
-        $(window).on('load', function() {
+        $window.on('load', function() {
             // Add CSS class that allows scene2 images to load. Done on ready()
             // so as not to block the loading of other images.
             $('body').addClass('ready-for-scene2');
