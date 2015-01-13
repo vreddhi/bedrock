@@ -6,6 +6,7 @@
     'use strict';
 
     var $window = $(window);
+    var $document = $(document);
 
     var uiTourSendEvent = function(action, data) {
         var event = new CustomEvent('mozUITour', {
@@ -65,20 +66,14 @@
                 // as non-firefox users and initiate a download
                 $html.addClass('firefox-latest');
 
+                // if user is on release channel and has latest version, offer refresh button
                 uiTourGetConfiguration('appinfo', function(config) {
-                    // check if on release channel and full user version matches full latest version
                     if (config.defaultUpdateChannel === 'release' && config.version === latestFirefoxVersionFull) {
-                        // script is in the <head>, so make sure DOM is ready
-                        $(function() {
-                            // show refresh button
-                            $('#refresh-firefox').on('click', function() {
-                                uiTourSendEvent('resetFirefox');
-                            });
+                        $html.addClass('show-refresh');
 
-                            $('#refresh-firefox-wrapper').show();
-
-                            // hide superfluous links
-                            $('.hide-for-refresh').hide();
+                        // DOM may not be ready yet, so bind filtered click handler to document
+                        $document.on('click', '#refresh-firefox', function() {
+                            uiTourSendEvent('resetFirefox');
                         });
                     }
                 });
@@ -126,7 +121,7 @@
         || site.platform === 'android'  // download goes to Play Store
     );
 
-    $(document).ready(function() {
+    $document.ready(function() {
         var $scene1 = $('#scene1');
         var $stage = $('#stage-firefox');
         var $thankYou = $('.thankyou');
