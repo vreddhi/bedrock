@@ -131,21 +131,17 @@ main {
 .fxos-hero-space {
     color: white;
     padding-top: 2em;
-    height: 415px;
+    height: 445px;
     overflow: hidden;
     clear: both;
     .transition(height .3s);
 
-    @media only screen and (max-width: 1600px) {
-        padding-top: 2em;
-        height: 415px;
-    }
     @media only screen and (max-width: 1366px) {
-        height: 375px;
+        height: 405px;
     }
     @media only screen and (max-width: 1024px) {
-        height: 295px;
-        padding-top: 1.5em;
+        height: 325px;
+        padding-top: 1em;
     }
     @media only screen and (max-width: @breakTablet) {
         height: 595px
@@ -207,6 +203,8 @@ main {
 }
 .phone-container {
     img {
+        position: relative;
+        bottom: -30px;
         width: 520px;
         height: auto;
         .transition(all 1s);
@@ -218,6 +216,7 @@ main {
             width: 500px;
         }
         @media only screen and (max-width: 1024px) {
+            bottom: -40px;
             width: 400px;
         }
         @media only screen and (max-width: 768px) {
