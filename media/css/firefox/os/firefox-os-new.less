@@ -131,10 +131,9 @@ main {
 .fxos-hero-space {
     color: white;
     padding-top: 2em;
-    height: 445px;
+    height: auto;
     overflow: hidden;
     clear: both;
-    .transition(height .3s);
 
     @media only screen and (max-width: 1366px) {
         height: 405px;
@@ -192,37 +191,39 @@ main {
 .fxos-cta,
 .phone-container {
     position: relative;
-    display: inline-block;
+    float: left;
     width: 45%;
     vertical-align: middle;
 
     @media only screen and (max-width: @breakTablet) {
         display: block;
+        float: none;
         width: 100%;
+    }
+}
+.fxos-cta {
+    @media only screen and (max-width: 1024px) {
+        margin-top: 10px;
     }
 }
 .phone-container {
     img {
         position: relative;
-        bottom: -30px;
+        bottom: -10px;
         width: 520px;
         height: auto;
-        .transition(all 1s);
+        transition: width .2s,
+                    height .2s;
 
         @media only screen and (max-width: 1600px) {
-            width: 520px;
-        }
-        @media only screen and (max-width: 1366px) {
-            width: 500px;
+            bottom: -20px;
         }
         @media only screen and (max-width: 1024px) {
-            bottom: -40px;
-            width: 400px;
-        }
-        @media only screen and (max-width: 768px) {
+            bottom: -50px;
             width: 400px;
         }
         @media only screen and (min-width: @breakMobileLandscape) and (max-width: @breakTablet) {
+            bottom: 0;
             width: 460px;
         }
         @media only screen and (max-width: @breakMobile) {
