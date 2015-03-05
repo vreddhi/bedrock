@@ -39,6 +39,8 @@
             var $main = $('#main-content');
             // get the mapbox map id.
             var mapId = $main.data('mapbox');
+            // touch support detection.
+            var hasTouch = L.Browser.touch || L.Browser.msTouch;
             // mapbox access token
             L.mapbox.accessToken = $main.data('token');
             // set page nav state.
@@ -51,12 +53,10 @@
             map = L.mapbox.map('map').setView([28, 0], 2);
             // load mozilla custom map tiles
             var mapLayer = L.mapbox.tileLayer(mapId,{
-                detectRetina: true
+                detectRetina: !hasTouch
             });
             // when ready, set the map and page default states
             mapLayer.on('ready', function () {
-                // touch support detection.
-                var touch = L.Browser.touch || L.Browser.msTouch;
                 // add tile layer to the map
                 mapLayer.addTo(map);
                 // disable map zoom on scroll.
@@ -76,7 +76,7 @@
                 // split the label layer for more control.
                 mozMap.splitLabelLayer();
                 // disable dragging for touch devices.
-                if (touch) {
+                if (hasTouch) {
                     // disable drag and zoom handlers.
                     map.dragging.disable();
                     map.touchZoom.disable();
@@ -956,10 +956,12 @@
          * (thanks to to Alex Barth @ MapBox)
          */
         splitLabelLayer: function () {
+            var hasTouch = L.Browser.touch || L.Browser.msTouch;
+
             topPane = map._createPane('leaflet-top-pane', map.getPanes().mapPane);
             // this custom map layer only contains country names, no map!
             topLayer = L.mapbox.tileLayer('mozilla-webprod.ijaelnfn', {
-                detectRetina: true
+                detectRetina: !hasTouch
             });
             topLayer.on('ready', function() {
                 var state = mozMap.getMapState();
